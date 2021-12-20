@@ -1,3 +1,8 @@
+//A histórinha do jogo é a seguinte:
+//Stacy estava precisando de um descanso e foi para o mato/campo, 
+//e lá ela queria se exercitar e viu os lindos bixinhos descansando e pensou: 
+//"Por que não pular esses lindos bichanos?"
+
 var cowgirl, cowgirlCorrendo, cowgirlbateu, checkpoint, trexpulandoSom;
 
 var grama, gramafotinha;
@@ -64,7 +69,7 @@ function setup(){
 
     borda = createEdgeSprites();
 
-    grama = createSprite(200, 380, width, 20);
+    grama = createSprite(200, 390, width, 20);
     grama.addImage ("tudo", gramafotinha);
     grama.x = grama.width/50;
     grama.scale = 1;
@@ -85,17 +90,17 @@ function setup(){
 
     placar = 0;
 
-    cowgirl.setCollider("rectangle", 0, 0);
-    //cowgirl.debug = true;
+    cowgirl.setCollider("rectangle", 0, 0, 30, 120);
+    cowgirl.debug = true;
 
 }
 
 function draw(){
 
-    //console.log (mouseX, mouseY);
+    console.log (mouseY);
 
     background(ceu);
-    console.log(frameCount);
+    //console.log(frameCount);
 
     
     text("Placar: "+ placar, windowWidth - 180, 50);
@@ -112,13 +117,13 @@ function draw(){
         resetar.visible = false;
 
         grama.velocityX = -(2 + placar/100);
-
+            
         if(grama.x < 0){
             grama.x = grama.width/2;
         }
 
-        if(keyDown("space") && cowgirl.y >= 600){
-            cowgirl.velocityY = -15;
+        if(keyDown("space") && cowgirl.y >= 640){
+            cowgirl.velocityY = -12;
             trexpulandoSom.play();
 
         }
@@ -184,7 +189,7 @@ function GalinhaseVacas(){
 
     if(frameCount % 70 === 0){
 
-        galinhaVacaObs = createSprite (1980, 700, 10, 40);
+        galinhaVacaObs = createSprite (1980, 720, 10, 40);
         galinhaVacaObs.velocityX = -(6 + placar/100);
 
         var um = Math.round(random(1, 6));
