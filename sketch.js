@@ -11,6 +11,8 @@ var chaoinvisivel;
 
 var ceu;
 
+var nuvem, nuvemImg, grupodenuvens;
+
 var galinhaobs1, galinhaobs2, galinhaobs3, vacaobs1, vacaobs2, vacaobs3, grupodeobs; 
 
 var placar;
@@ -35,6 +37,8 @@ function preload(){
 
     ceu = loadImage("ceu.png");
 
+    nuvemImg = loadImage("nuvem.png");
+
     resetarimage = loadImage("tryAgain.png");
 
     gameoverimage = loadImage("gameoverImage.png");
@@ -51,8 +55,6 @@ function preload(){
     trexpulandoSom = loadSound("jump.mp3");
 
     gameoverSom = loadSound("die.mp3");
-
-    
 
 }
 
@@ -91,7 +93,7 @@ function setup(){
     placar = 0;
 
     cowgirl.setCollider("rectangle", 0, 0, 30, 120);
-    cowgirl.debug = true;
+    //cowgirl.debug = true;
 
 }
 
@@ -130,6 +132,8 @@ function draw(){
 
         cowgirl.velocityY = cowgirl.velocityY + 1;
 
+        nuvens();
+
         GalinhaseVacas();
 
         if(grupodeobs.isTouching (cowgirl)){
@@ -145,11 +149,15 @@ function draw(){
 
         grupodeobs.setVelocityXEach (0);
 
+        grupodenuvens.setVelocityXEach (0);
+
         grama.velocityX = 0;
 
         cowgirl.changeAnimation("bateu", cowgirlbateu);
 
         grupodeobs.setLifetimeEach(-1);
+
+        grupodenuvens.setLifetimeEach(-1);
 
         cowgirl.velocityY = 0;
         
@@ -160,6 +168,8 @@ function draw(){
     }
 
     //console.log(cowgirl.y);
+    //console.log(mouseX);
+    //console.log(mouseY);
 
     //impede que o trex caixa
     cowgirl.collide(chaoinvisivel);
@@ -177,6 +187,7 @@ function reset(){
     resetar.visible = false;
 
     grupodeobs.destroyEach();
+    grupodenuvens.destroyEach();
 
     cowgirl.changeAnimation("correndo", cowgirlCorrendo);
 
@@ -184,6 +195,27 @@ function reset(){
 
 }
 
+function nuvens(){
+
+    if(frameCount % 60 === 0){
+
+        nuvem = createSprite (1980, 700, 40, 10);
+        nuvem.addImage(nuvemImg);
+        
+        nuvem.y = Math.round(random (20, 620));
+        nuvem.velocityX = -3;
+        
+        nuvem.depth = cowgirl.depth;
+
+        cowgirl.depth = cowgirl.depth + 1;
+
+        grupodenuvens.add(nuvem);
+
+        nuvem.lifetime = 380;
+        
+    }
+
+}
 
 function GalinhaseVacas(){
 
