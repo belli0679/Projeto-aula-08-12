@@ -211,7 +211,7 @@ function nuvens(){
 
         grupodenuvens.add(nuvem);
 
-        nuvem.lifetime = 380;
+        nuvem.lifetime = 700;
         
     }
 
